@@ -1,0 +1,15 @@
+{
+    "short_name": "Episodehunter",
+    "name": "Episodehunter",
+    "icons": [{
+        "src": "/assets/images/logo.png",
+        "sizes": "108x108",
+        "type": "image/png"
+    }],
+    "start_url": "/index.html",
+    "display": "standalone",
+    "orientation": "portrait",
+
+    "gcm_sender_id": "50488583903",
+    "gcm_user_visible_only": true
+}

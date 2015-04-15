@@ -1,0 +1,103 @@
+<!doctype html>
+<html ng-app="EH">
+  <head>
+    <meta charset="utf-8">
+    <title>Episodehunter</title>
+    <link rel="manifest" href="manifest.json">
+    <meta name="description" content="">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon" sizes="64x64">
+    <link rel="icon" href="/favicon-16.ico" type="image/x-icon" sizes="16x16">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+
+    <!-- build:css({.tmp/serve,src}) styles/app.css -->
+    <!-- inject:css -->
+    <link rel="stylesheet" href="app/index.css">
+    <!-- endinject -->
+    <!-- endbuild -->
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper">
+        <div class="col s12">
+          <a href="#!" class="brand-logo"></a>
+          <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
+          <ul class="right hide-on-med-and-down">
+            <li><a href="#">HOME</i></a></li>
+            <li><a href="#">POPULAR MOVIES</a></li>
+            <li><a href="#">POPULAR SHOWS</a></li>
+            <li><a href="#">TJOSKAR</a></li>
+            <li><a href="#">SEARCH</a></li>
+          </ul>
+          <ul class="side-nav" id="mobile-demo">
+            <li><a href="#">HOME</i></a></li>
+            <li><a href="#">POPULAR MOVIES</a></li>
+            <li><a href="#">POPULAR SHOWS</a></li>
+            <li><a href="#">TJOSKAR</a></li>
+            <li><a href="#">SEARCH</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div ng-view></div>
+    </div>
+
+    <script>
+      if ('serviceWorker' in window.navigator) {
+        window.navigator.serviceWorker.register('/sw.js')
+          .then(function(reg) {
+            window.oskar = reg;
+            console.log('◕‿◕', reg);
+          }, function(err) {
+            console.log('ಠ_ಠ', err);
+          });
+
+        window.requestNotificationPermission = function() {
+          if (!window.Notification) {
+            console.log('Ooops Notifications Not Supported');
+            return;
+          }
+
+          window.Notification.requestPermission(function(result) {
+            console.log('We request and get: ', result);
+            if (result !== 'granted') {
+              console.log('Permission wasn\'t granted. Allow a retry.');
+              return;
+            }
+          });
+        };
+
+        window.requestPushPermission = function() {
+          window.navigator.serviceWorker.ready.then(function(serviceWorkerRegistration) {
+            serviceWorkerRegistration.pushManager.subscribe()
+              .then(function(pushSubscription) {
+                console.log('We got: (save it) ', pushSubscription);
+                console.log(pushSubscription.subscriptionId);
+              })
+              .catch(function(e) {
+                console.error('Unable to register for push', e);
+              });
+          });
+        };
+
+      }
+    </script>
+
+
+    <!-- build:js({.tmp/serve,.tmp/partials,src}) scripts/app.js -->
+    <!-- inject:vendor -->
+    <script src="/vendor.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:js -->
+    <script src="app/boot.js"></script>
+    <!-- endinject -->
+
+    <!-- inject:partials -->
+    <script src="/template_cache.js"></script>
+    <!-- endinject -->
+    <!-- endbuild -->
+
+  </body>
+</html>
