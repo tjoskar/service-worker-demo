@@ -3,7 +3,7 @@ This repo contains a few service worker demos.
 How to use:
 ```
 1 Clone
-2 Start api mock (cd api-server && node server.js)
+2 Start api mock (cd api-server && npm install express && node server.js)
 3 Start {no-sw || basic || full} demo by starting one of the python servers (python server.py)
 ```
 
